@@ -148,6 +148,13 @@ impl BinaryDisplay {
         self.window.present();
         false
     }
+
+    /// Set an individual pixel's value
+    ///
+    /// DELETEME: Testing/development only
+    pub fn set_pixel(&mut self, x: usize, y: usize, color: BinaryColor) {
+        self.pixels.set(x, y, color);
+    }
 }
 
 impl Drawing<BinaryColor> for BinaryDisplay {
