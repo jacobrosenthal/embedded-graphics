@@ -247,3 +247,34 @@ where
     where
         T: IntoIterator<Item = drawable::Pixel<C>>;
 }
+
+/// DOc
+pub trait ExperimentalDrawing<D, C>
+where
+    C: PixelColor,
+    D: Drawing<C>,
+{
+    /// Doc
+    fn draw_ext(&self, display: &mut D);
+}
+
+impl<C, D> ExperimentalDrawing<D, C> for crate::primitives::Rectangle<C>
+where
+    C: PixelColor,
+    D: Drawing<C>,
+{
+    fn draw_ext(&self, display: &mut D) {
+        display.draw(self.into_iter())
+    }
+}
+
+impl<T, C, D> ExperimentalDrawing<D, C> for T
+where
+    T: Iterator<Item = crate::drawable::Pixel<C>>,
+    C: PixelColor,
+    D: Drawing<C>,
+{
+    fn draw_ext(&self, display: &mut D) {
+        display.draw(self)
+    }
+}
